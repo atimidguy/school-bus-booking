@@ -20,4 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#app {
+  margin: 0.2rem 0.2rem 0.4rem;
+}
 </style>

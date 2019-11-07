@@ -16,7 +16,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/_variables.scss";
 .common-header {
-  margin-top: 0.2rem;
   padding-bottom: 0.3rem;
   text-align: center;
 }

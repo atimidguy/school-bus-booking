@@ -18,8 +18,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/_variables.scss";
+
 .footer {
-  border-top: 2px solid;
+  border-top: 2px solid $titleColor;
   text-align: center;
   // position: absolute;
   // bottom: 0.2rem;
@@ -31,6 +33,6 @@ export default {
   font-size: 0.26rem;
 }
 .footer-link {
-  color: #777;
+  color: $dark-7;
 }
 </style>

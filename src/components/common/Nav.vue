@@ -36,11 +36,14 @@ export default {
 
 .nav {
   display: flex;
+  justify-content: space-around;
   background-color: #f5f5f5;
   font-size: 0.3rem;
+  text-align: center;
 }
 .nav-item {
-  padding: 0.3rem 0.24rem;
+  width: 25%;
+  padding: 0.3rem 0rem;
   &:active {
     background: #dfdedd;
   }
