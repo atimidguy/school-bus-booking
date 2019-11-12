@@ -129,6 +129,9 @@ table {
 }
 
 @import "./_variables.scss";
+* {
+  box-sizing: border-box;
+}
 html {
   font-size: $fontSize;
   color: $dark-3;

@@ -9,79 +9,61 @@
       >
         <div class="news-item-title" @click="handleNewsItemClick(index)">
           <div class="news-item-inner">
-            {{ newsItem.title }} - {{ newsItem.time }}
+            {{ newsItem.id }} - {{ newsItem.title }}
           </div>
         </div>
-        <p class="news-item-content" v-show="newsItem.isExpanded">
-          {{ newsItem.content }}
-        </p>
+
+        <!-- <transition name="fadeHeight">
+          <div v-if="newsItem.isExpanded">
+            <p class="news-item-content">
+              {{ newsItem.content }}
+            </p>
+          </div>
+        </transition> -->
+        <el-collapse-transition :name="index">
+          <p class="news-item-content" v-if="newsItem.isExpanded">
+            {{ newsItem.content }}
+          </p>
+        </el-collapse-transition>
       </div>
-      <pagination
+      <!-- <pagination
         :pages="pages"
         :pageIndex="pageIndex"
         @updatepage="updatepage"
-      ></pagination>
+      ></pagination> -->
+      <el-pagination
+        class="pagination"
+        small
+        background
+        :page-size="pageSize"
+        :total="news.length"
+        @current-change="updatepage"
+        layout="prev, pager, next"
+        prev-text="上一页"
+        next-text="下一页"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-import Pagination from './Pagination.vue';
+// import Pagination from './Pagination.vue';
+// import CollapseFade from '@/components/common/CollapseFade.vue';
 
 export default {
   name: 'HomeNews',
   components: {
-    Pagination,
+    // Pagination,
+    // CollapseFade,
   },
   data() {
     return {
-      news: [
-        {
-          id: '0001',
-          isExpanded: true,
-          title: '关于法定假日、学校开学、放假时间段增加交通车的通知',
-          time: '2019/10/21 16:18:46',
-          content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi enim reiciendis, sapiente ad eaque odio odit similique ex soluta nostrum ratione cum voluptatem recusandae veritatis laborum quaerat, ipsam provident laboriosam.',
-        },
-        {
-          id: '0002',
-          isExpanded: false,
-          title: '关于2019年10月3日-- 10月7日关闭夜间时段（18:00---次日8:00）购票、退票的䃼充通知',
-          time: '2019/10/3 9:13:49',
-          content: 'Adipisicing elit. Lorem ipsum dolor sit amet consectetur,Commodi enim reiciendis, sapiente ad eaque odio odit similique ex soluta nostrum ratione cum voluptatem recusandae veritatis laborum quaerat, ipsam provident laboriosam.',
-        },
-        {
-          id: '0003',
-          isExpanded: false,
-          title: '关于2019年10月1日-- 10月7日关闭夜间时段（18:00---次日8:00）外网购票、退票的通知',
-          time: '2019/9/30 15:47:19',
-          content: 'Sapiente ad eaque odioLorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi enim reiciendis,  odit similique ex soluta nostrum ratione cum voluptatem recusandae veritatis laborum quaerat, ipsam provident laboriosam.',
-        },
-        {
-          id: '0004',
-          isExpanded: false,
-          title: '关于暑假期间雅安往返成都校区车次变化的通知',
-          time: '2019/7/13 10:13:37',
-          content: 'Commodi enim reiciendis,  odit similique ex soluta nostrum ratione cum voluptatem recusandae veritatis laborum quaerat, ipsam provident laboriosam.',
-        },
-        {
-          id: '0005',
-          isExpanded: false,
-          title: '四川农业大学校车票网络购票须知（试行）',
-          time: '2019/5/20 16:14:30',
-          content: 'bad aabasa asdl; l;k',
-        },
-        {
-          id: '0006',
-          isExpanded: false,
-          title: '紧急通知',
-          time: '2019/4/28 9:23:29',
-          content: 'Urgent News',
-        },
-      ],
+      news: [],
       visibleNewsItems: [],
       pageIndex: 0,
-      pageSize: 3,
+      pageSize: 5,
+      collapsed: false,
     };
   },
   computed: {
@@ -91,24 +73,29 @@ export default {
     },
   },
   beforeMount() {
-    this.news.forEach((item, index) => {
-      if (index % this.pageSize === 0) {
-        this.news[index].isExpanded = true;
-      }
-    });
-  },
-  mounted() {
-    this.updateVisibleNewsItems();
+    this.$axios.get('/api/news.json').then(this.setNews);
   },
   methods: {
+    setNews(res) {
+      const result = res.data;
+      this.news = result;
+      this.news.forEach((item, index) => {
+        if (index % this.pageSize === 0) {
+          this.news[index].isExpanded = true;
+        }
+      });
+      this.updateVisibleNewsItems();
+    },
     updateVisibleNewsItems() {
       this.visibleNewsItems = this.news
         .slice(this.pageIndex * this.pageSize, this.pageIndex * this.pageSize + this.pageSize);
     },
-    updatepage(pageIndex) {
-      this.pageIndex = pageIndex;
+    updatepage(currentPage) {
+      this.pageIndex = currentPage - 1;
+      window.scrollTo(0, 0);
       this.updateVisibleNewsItems();
     },
+    // elementui pagination
     handleNewsItemClick(index) {
       this.visibleNewsItems[index].isExpanded = !this.visibleNewsItems[index].isExpanded;
     },
@@ -117,6 +104,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fadeHeight-enter-active,
+.fadeHeight-leave-active {
+  transition: all 1s;
+  max-height: 2.4rem;
+}
+.fadeHeight-enter,
+.fadeHeight-leave-to {
+  opacity: 0;
+  max-height: 0px;
+}
+
 @import "@/assets/styles/_variables.scss";
 .news {
   font-size: 0.32rem;
@@ -138,6 +136,8 @@ export default {
       align-items: center;
     }
     .news-item-content {
+      // max-height: 2.4rem;
+      overflow: hidden;
       padding: 0.2rem;
       border: 1px solid $dark-c;
       border-top: none;

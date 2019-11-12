@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <header-nav></header-nav>
-    <router-view />
+    <router-view></router-view>
     <common-footer></common-footer>
   </div>
 </template>
 
 <script>
-import HeaderNav from '@/components/HeaderNav.vue';
-import CommonFooter from '@/components/common/Footer.vue';
+import HeaderNav from './components/HeaderNav.vue';
+import CommonFooter from './components/common/Footer.vue';
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
     HeaderNav,
     CommonFooter,
@@ -19,8 +19,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 #app {
-  margin: 0.2rem 0.2rem 0.4rem;
+  margin: 0.4rem 0.1rem;
 }
 </style>
