@@ -65,7 +65,7 @@ export default {
     border: 1px solid $dark-c;
     border-radius: 0.1rem;
     &.active {
-      background-color: $titleColor;
+      background-color: $primaryColor;
       color: $white-1;
     }
   }

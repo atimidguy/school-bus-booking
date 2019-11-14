@@ -21,10 +21,8 @@ export default {
 @import "@/assets/styles/_variables.scss";
 
 .footer {
-  border-top: 2px solid $titleColor;
+  // border-top: 2px solid $primaryColor;
   text-align: center;
-  // position: absolute;
-  // bottom: 0.2rem;
 }
 .footer-title {
   margin: 0.5rem auto 0.2rem;

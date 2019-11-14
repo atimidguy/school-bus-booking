@@ -22,12 +22,12 @@ export default {
 .subtitle {
   font-size: 0.36rem;
   font-weight: normal;
-  color: $subtitleColor;
+  color: $subprimaryColor;
 }
 .title {
   font-size: 0.56rem;
   margin-top: 0.2rem;
   font-weight: 500;
-  color: $titleColor;
+  color: $primaryColor;
 }
 </style>

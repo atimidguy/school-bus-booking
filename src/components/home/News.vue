@@ -12,7 +12,6 @@
             {{ newsItem.id }} - {{ newsItem.title }}
           </div>
         </div>
-
         <!-- <transition name="fadeHeight">
           <div v-if="newsItem.isExpanded">
             <p class="news-item-content">
@@ -33,8 +32,8 @@
       ></pagination> -->
       <el-pagination
         class="pagination"
-        small
         background
+        :pager-count="5"
         :page-size="pageSize"
         :total="news.length"
         @current-change="updatepage"
@@ -46,7 +45,6 @@
     </div>
   </div>
 </template>
-
 <script>
 // import Pagination from './Pagination.vue';
 // import CollapseFade from '@/components/common/CollapseFade.vue';
@@ -101,14 +99,15 @@ export default {
     },
   },
 };
-</script>
 
+</script>
 <style lang="scss" scoped>
 .fadeHeight-enter-active,
 .fadeHeight-leave-active {
   transition: all 1s;
   max-height: 2.4rem;
 }
+
 .fadeHeight-enter,
 .fadeHeight-leave-to {
   opacity: 0;
@@ -116,17 +115,21 @@ export default {
 }
 
 @import "@/assets/styles/_variables.scss";
+
 .news {
   font-size: 0.32rem;
   padding: 0.2rem;
   line-height: 1.3;
+
   .news-report {
     font-weight: bold;
     font-size: 0.4rem;
     margin-bottom: 0.16rem;
   }
+
   .news-item-wrapper {
     margin-bottom: 0.2rem;
+
     .news-item-title {
       background-color: $white-1;
       padding: 0.2rem;
@@ -135,6 +138,7 @@ export default {
       display: flex;
       align-items: center;
     }
+
     .news-item-content {
       // max-height: 2.4rem;
       overflow: hidden;
@@ -144,5 +148,19 @@ export default {
       background-color: $white-3;
     }
   }
+
+  .pagination {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+::v-deep .el-pagination.is-background .el-pager li:not(.disabled):hover {
+  color: $primaryColor;
+}
+
+::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: $primaryColor;
+  color: #fff;
 }
 </style>
