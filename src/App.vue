@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <header-nav></header-nav>
+    <common-header></common-header>
+    <common-nav></common-nav>
     <router-view></router-view>
     <contact-list></contact-list>
     <common-footer></common-footer>
@@ -8,14 +9,16 @@
 </template>
 
 <script>
-import HeaderNav from './components/HeaderNav.vue';
+import CommonHeader from './components/common/Header.vue';
+import CommonNav from './components/common/Nav.vue';
 import CommonFooter from './components/common/Footer.vue';
 import ContactList from './components/common/ContactList.vue';
 
 export default {
   name: 'app',
   components: {
-    HeaderNav,
+    CommonHeader,
+    CommonNav,
     CommonFooter,
     ContactList,
   },
@@ -24,6 +27,6 @@ export default {
 
 <style>
 #app {
-  margin: 0.4rem 0.04rem;
+  margin: 0.4rem 0.1rem;
 }
 </style>

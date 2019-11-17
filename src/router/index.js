@@ -13,22 +13,44 @@ const routes = [
   {
     path: '/ticket',
     name: 'ticket',
-    component: () => import(/* webpackChunkName: "group-foo" */ '../views/Ticket.vue'),
+    component: () => import('../views/Ticket.vue'),
+  },
+  {
+    path: '/ticket/:from - :to',
+    component: () => import('@/components/ticket/TicketDetail.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('@/components/ticket/TicketMoreDetail.vue'),
+      },
+      {
+        path: ':id',
+        component: () => import('@/components/ticket/TicketMoreDetail.vue'),
+        props: true,
+      },
+    ],
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "group-foo" */ '../views/Login.vue'),
+    component: () => import('../views/Login.vue'),
   },
   {
     path: '/outplogin',
     name: 'outplogin',
-    component: () => import(/* webpackChunkName: "group-foo" */ '../views/Outplogin.vue'),
+    component: () => import('../views/Outplogin.vue'),
   },
 ];
 
 const router = new VueRouter({
   routes,
+  // linkActiveClass: 'active',
 });
+
+// router.beforeEach((to, from, next) => {
+//   if (from.path === `${to.path}/${to.params.id}`) {
+//   }
+//   next();
+// });
 
 export default router;

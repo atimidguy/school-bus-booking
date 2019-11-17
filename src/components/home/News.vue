@@ -20,9 +20,11 @@
           </div>
         </transition> -->
         <el-collapse-transition :name="index">
-          <p class="news-item-content" v-if="newsItem.isExpanded">
+          <div v-if="newsItem.isExpanded">
+            <p class="news-item-content">
             {{ newsItem.content }}
           </p>
+          </div>
         </el-collapse-transition>
       </div>
       <!-- <pagination
@@ -46,7 +48,7 @@
   </div>
 </template>
 <script>
-// import Pagination from './Pagination.vue';
+// import Pagination from '../common/Pagination.vue';
 // import CollapseFade from '@/components/common/CollapseFade.vue';
 
 export default {
@@ -120,7 +122,7 @@ export default {
   font-size: 0.32rem;
   padding: 0.2rem;
   line-height: 1.3;
-
+  margin: .3rem auto;
   .news-report {
     font-weight: bold;
     font-size: 0.4rem;
@@ -142,6 +144,7 @@ export default {
     .news-item-content {
       // max-height: 2.4rem;
       overflow: hidden;
+      line-height: 1.5;
       padding: 0.2rem;
       border: 1px solid $dark-c;
       border-top: none;

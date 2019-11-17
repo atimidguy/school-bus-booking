@@ -83,7 +83,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/_variables.scss";
 .contact-container {
-  margin-top: 1rem;
+  margin: 0.8rem -0.1rem /* compensate #app margin 0.1rem */;
   background-color: $primaryColor;
   text-align: center;
   padding: 0.28rem;
